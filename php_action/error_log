@@ -1,0 +1,286 @@
+[03-Jul-2019 08:02:14 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[03-Jul-2019 09:16:52 UTC] PHP Warning:  mysqli_connect(): (42000/1226): User 'life_pharmacy' has exceeded the 'max_user_connections' resource (current value: 30) in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 10
+[03-Jul-2019 10:42:11 UTC] PHP Warning:  mysqli_connect(): (42000/1226): User 'life_pharmacy' has exceeded the 'max_user_connections' resource (current value: 30) in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 10
+[04-Jul-2019 05:19:32 UTC] PHP Warning:  mysqli_connect(): (42000/1226): User 'life_pharmacy' has exceeded the 'max_user_connections' resource (current value: 30) in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 10
+[04-Jul-2019 16:26:20 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[04-Jul-2019 16:26:20 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[04-Jul-2019 16:26:20 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[04-Jul-2019 16:26:32 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[04-Jul-2019 16:26:33 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[04-Jul-2019 16:26:33 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[04-Jul-2019 16:26:36 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[04-Jul-2019 16:26:36 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[04-Jul-2019 16:26:36 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[04-Jul-2019 16:26:36 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[04-Jul-2019 16:26:58 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[04-Jul-2019 16:26:58 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[04-Jul-2019 16:26:59 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[04-Jul-2019 16:27:05 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[04-Jul-2019 16:27:06 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[04-Jul-2019 16:27:06 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[04-Jul-2019 16:27:11 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[05-Jul-2019 07:38:03 UTC] PHP Warning:  mysqli::mysqli(): (HY000/1130): Host 'localhost' is not allowed to connect to this MySQL server in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 9
+[05-Jul-2019 07:38:03 UTC] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 8
+[05-Jul-2019 07:38:03 UTC] PHP Notice:  Trying to get property of non-object in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 10
+[05-Jul-2019 07:38:03 UTC] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 14
+[05-Jul-2019 07:38:03 UTC] PHP Notice:  Undefined variable: row in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 16
+[07-Jul-2019 17:07:38 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[10-Jul-2019 11:15:02 UTC] PHP Warning:  mysqli::mysqli(): (42000/1226): User 'life_pharmacy' has exceeded the 'max_user_connections' resource (current value: 30) in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 9
+[10-Jul-2019 11:15:02 UTC] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/editProduct.php on line 19
+[10-Jul-2019 11:15:02 UTC] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/editProduct.php on line 29
+[17-Jul-2019 09:28:43 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[17-Jul-2019 09:38:58 UTC] PHP Notice:  Trying to get property of non-object in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchProduct.php on line 18
+[17-Jul-2019 10:07:02 UTC] PHP Warning:  mysqli::mysqli(): (42000/1226): User 'life_pharmacy' has exceeded the 'max_user_connections' resource (current value: 30) in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 9
+[17-Jul-2019 10:07:02 UTC] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 8
+[17-Jul-2019 10:07:02 UTC] PHP Notice:  Trying to get property of non-object in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 10
+[17-Jul-2019 10:07:02 UTC] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 14
+[17-Jul-2019 10:07:02 UTC] PHP Notice:  Undefined variable: row in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 16
+[17-Jul-2019 10:07:33 UTC] PHP Warning:  mysqli_connect(): (42000/1226): User 'life_pharmacy' has exceeded the 'max_user_connections' resource (current value: 30) in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 10
+[17-Jul-2019 10:09:19 UTC] PHP Warning:  mysqli_connect(): (42000/1226): User 'life_pharmacy' has exceeded the 'max_user_connections' resource (current value: 30) in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 10
+[17-Jul-2019 13:36:32 UTC] PHP Warning:  mysqli::mysqli(): (HY000/1130): Host 'localhost' is not allowed to connect to this MySQL server in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 9
+[17-Jul-2019 13:36:32 UTC] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 8
+[17-Jul-2019 13:36:32 UTC] PHP Notice:  Trying to get property of non-object in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 10
+[17-Jul-2019 13:36:32 UTC] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 14
+[17-Jul-2019 13:36:32 UTC] PHP Notice:  Undefined variable: row in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 16
+[17-Jul-2019 13:38:38 UTC] PHP Warning:  mysqli_connect(): (42000/1226): User 'life_pharmacy' has exceeded the 'max_user_connections' resource (current value: 30) in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 10
+[17-Jul-2019 16:52:34 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[17-Jul-2019 16:53:04 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[17-Jul-2019 16:58:00 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 05:46:58 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 05:46:58 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 05:46:59 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 05:46:59 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 05:47:00 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 05:47:01 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 05:47:01 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 05:47:02 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 05:47:02 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 05:47:03 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 05:47:03 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 05:47:04 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 06:07:55 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[18-Jul-2019 09:26:35 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 09:26:35 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 09:26:35 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 09:26:36 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 09:26:40 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 09:26:40 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 09:26:41 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 09:26:41 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 09:26:45 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 09:26:46 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 09:27:14 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:27:49 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:27:49 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:27:49 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:27:49 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:27:50 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:08 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:09 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:10 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:10 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:10 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:10 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:10 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:10 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:10 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:10 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:10 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:11 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:12 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:12 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:12 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:12 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:12 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:12 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:12 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:12 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:34 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:45 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:56 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:28:59 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 12:29:05 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[18-Jul-2019 14:24:27 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[19-Jul-2019 05:30:51 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[19-Jul-2019 06:04:03 UTC] PHP Warning:  mysqli_connect(): (HY000/1130): Host 'localhost' is not allowed to connect to this MySQL server in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 10
+[19-Jul-2019 17:11:23 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[20-Jul-2019 07:39:13 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[20-Jul-2019 07:39:14 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[20-Jul-2019 07:39:14 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[20-Jul-2019 07:39:15 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[20-Jul-2019 07:40:13 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[20-Jul-2019 07:40:21 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[20-Jul-2019 07:40:21 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[20-Jul-2019 10:32:19 UTC] PHP Warning:  mysqli::mysqli(): (HY000/1130): Host 'localhost' is not allowed to connect to this MySQL server in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 9
+[20-Jul-2019 10:32:19 UTC] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchCategories.php on line 6
+[20-Jul-2019 10:32:19 UTC] PHP Notice:  Trying to get property of non-object in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchCategories.php on line 10
+[20-Jul-2019 10:32:19 UTC] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchCategories.php on line 46
+[20-Jul-2019 14:56:03 UTC] PHP Warning:  mysqli_connect(): (HY000/1130): Host 'localhost' is not allowed to connect to this MySQL server in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 10
+[21-Jul-2019 17:12:17 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:18 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:19 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:19 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:20 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:21 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:21 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:22 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:22 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:22 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:22 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:22 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:23 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:23 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:23 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:23 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:24 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:24 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:25 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:25 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:25 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:12:26 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[21-Jul-2019 17:58:11 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[22-Jul-2019 09:01:34 UTC] PHP Notice:  Undefined variable: order_id in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 52
+[22-Jul-2019 11:01:10 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[22-Jul-2019 11:01:11 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[22-Jul-2019 11:01:11 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[22-Jul-2019 11:01:11 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[22-Jul-2019 11:01:11 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[22-Jul-2019 11:01:12 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[22-Jul-2019 11:01:12 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[22-Jul-2019 13:16:52 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[22-Jul-2019 14:03:02 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[23-Jul-2019 06:25:59 UTC] PHP Warning:  mysqli_connect(): (HY000/1130): Host 'localhost' is not allowed to connect to this MySQL server in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 10
+[23-Jul-2019 12:19:46 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[23-Jul-2019 12:19:59 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[23-Jul-2019 12:58:12 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[23-Jul-2019 13:19:58 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[23-Jul-2019 15:45:18 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[23-Jul-2019 17:03:46 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[23-Jul-2019 17:03:46 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[23-Jul-2019 17:03:47 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[23-Jul-2019 17:03:48 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[23-Jul-2019 17:03:50 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[23-Jul-2019 17:03:50 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[24-Jul-2019 07:56:09 UTC] PHP Warning:  mysqli_connect(): (HY000/1130): Host 'localhost' is not allowed to connect to this MySQL server in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 10
+[24-Jul-2019 11:43:40 UTC] PHP Warning:  mysqli_connect(): (HY000/1130): Host 'localhost' is not allowed to connect to this MySQL server in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 10
+[24-Jul-2019 16:48:03 UTC] PHP Warning:  mysqli::mysqli(): (HY000/1130): Host 'localhost' is not allowed to connect to this MySQL server in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 9
+[24-Jul-2019 16:48:03 UTC] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 8
+[24-Jul-2019 16:48:03 UTC] PHP Notice:  Trying to get property of non-object in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 10
+[24-Jul-2019 16:48:03 UTC] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 14
+[24-Jul-2019 16:48:03 UTC] PHP Notice:  Undefined variable: row in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 16
+[25-Jul-2019 16:38:07 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[26-Jul-2019 11:29:27 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[27-Jul-2019 06:40:06 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[27-Jul-2019 10:21:22 UTC] PHP Notice:  Undefined variable: order_id in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 52
+[27-Jul-2019 10:21:22 UTC] PHP Notice:  Undefined variable: order_id in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 52
+[27-Jul-2019 10:21:22 UTC] PHP Notice:  Undefined variable: order_id in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 52
+[27-Jul-2019 10:21:22 UTC] PHP Notice:  Undefined variable: order_id in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 52
+[27-Jul-2019 10:21:22 UTC] PHP Notice:  Undefined variable: order_id in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 52
+[27-Jul-2019 13:13:51 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[27-Jul-2019 16:10:06 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[28-Jul-2019 07:30:03 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 07:30:03 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 07:30:04 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 07:30:04 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 07:30:05 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 07:30:06 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 07:30:12 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 07:30:12 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 07:30:13 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:28 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:28 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:28 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:29 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:32 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:34 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:35 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:36 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:36 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:36 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:38 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:38 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:38 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:39 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:40 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:41 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:51 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:52 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:53 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:53 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:54 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:54 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:54 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:54 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 11:11:55 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 16:49:37 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[28-Jul-2019 16:56:08 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 16:56:08 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 16:56:08 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 16:56:12 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 16:56:28 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 16:56:28 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 16:56:28 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 16:56:28 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 16:56:29 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 16:56:29 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 16:56:29 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[28-Jul-2019 16:56:29 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[29-Jul-2019 06:36:21 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[29-Jul-2019 06:36:42 UTC] PHP Fatal error:  Call to a member function fetch_row() on boolean in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[29-Jul-2019 07:16:52 UTC] PHP Warning:  mysqli::mysqli(): (HY000/2013): Lost connection to MySQL server at 'reading initial communication packet', system error: 104 in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 9
+[29-Jul-2019 07:16:52 UTC] PHP Warning:  mysqli_connect(): (HY000/2003): Can't connect to MySQL server on '127.0.0.1' (111) in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 10
+[29-Jul-2019 07:16:53 UTC] PHP Warning:  mysqli::mysqli(): (HY000/2003): Can't connect to MySQL server on '127.0.0.1' (111) in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 9
+[29-Jul-2019 07:16:53 UTC] PHP Warning:  mysqli_connect(): (HY000/2003): Can't connect to MySQL server on '127.0.0.1' (111) in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 10
+[29-Jul-2019 07:16:53 UTC] PHP Warning:  mysqli::mysqli(): (HY000/2003): Can't connect to MySQL server on '127.0.0.1' (111) in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 9
+[29-Jul-2019 07:16:53 UTC] PHP Warning:  mysqli_connect(): (HY000/2003): Can't connect to MySQL server on '127.0.0.1' (111) in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 10
+[29-Jul-2019 07:16:57 UTC] PHP Warning:  mysqli::mysqli(): (HY000/2003): Can't connect to MySQL server on '127.0.0.1' (111) in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 9
+[29-Jul-2019 07:16:57 UTC] PHP Warning:  mysqli_connect(): (HY000/2003): Can't connect to MySQL server on '127.0.0.1' (111) in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 10
+[29-Jul-2019 07:17:01 UTC] PHP Warning:  mysqli::mysqli(): (HY000/2003): Can't connect to MySQL server on '127.0.0.1' (111) in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 9
+[29-Jul-2019 07:17:01 UTC] PHP Warning:  mysqli_connect(): (HY000/2003): Can't connect to MySQL server on '127.0.0.1' (111) in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 10
+[29-Jul-2019 12:33:11 UTC] PHP Warning:  mysqli::mysqli(): (HY000/1130): Host 'localhost' is not allowed to connect to this MySQL server in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 9
+[29-Jul-2019 12:33:11 UTC] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/printOrder.php on line 13
+[29-Jul-2019 12:33:11 UTC] PHP Fatal error:  Call to a member function fetch_array() on null in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/printOrder.php on line 14
+[29-Jul-2019 15:09:40 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[29-Jul-2019 15:09:40 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[29-Jul-2019 15:09:40 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[29-Jul-2019 15:10:11 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[29-Jul-2019 15:10:12 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[29-Jul-2019 15:10:12 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[29-Jul-2019 15:10:12 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[29-Jul-2019 15:10:12 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[29-Jul-2019 15:10:15 UTC] PHP Notice:  Undefined index: userId in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/core.php on line 9
+[30-Jul-2019 05:06:27 UTC] PHP Warning:  mysqli::mysqli(): (HY000/1130): Host 'localhost' is not allowed to connect to this MySQL server in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 9
+[30-Jul-2019 05:06:27 UTC] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 28
+[30-Jul-2019 05:06:27 UTC] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 41
+[30-Jul-2019 05:06:27 UTC] PHP Fatal error:  Call to a member function fetch_row() on null in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/createOrder.php on line 44
+[30-Jul-2019 13:50:56 UTC] PHP Warning:  mysqli::mysqli(): (HY000/1130): Host 'localhost' is not allowed to connect to this MySQL server in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/db_connect.php on line 9
+[30-Jul-2019 13:50:56 UTC] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 8
+[30-Jul-2019 13:50:56 UTC] PHP Notice:  Trying to get property of non-object in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 10
+[30-Jul-2019 13:50:56 UTC] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 14
+[30-Jul-2019 13:50:56 UTC] PHP Notice:  Undefined variable: row in /home/sv0vk2fh45gi/public_html/client_online/life_pharmacy/php_action/fetchSelectedProduct.php on line 16

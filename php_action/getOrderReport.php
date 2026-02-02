@@ -1,20 +1,45 @@
-<?php 
+<?php
 
 require_once 'core.php';
 
-if($_POST) {
+function parseReportDate($input)
+{
+	if (empty($input))
+		return null;
+	$formats = array('m/d/Y', 'm/d/y', 'Y-m-d', 'd-m-Y', 'd/m/Y', 'd/m/y');
+	foreach ($formats as $f) {
+		$d = DateTime::createFromFormat($f, trim($input));
+		if ($d)
+			return $d->format('Y-m-d');
+	}
+	$d = new DateTime($input);
+	return $d ? $d->format('Y-m-d') : null;
+}
 
-	$startDate = $_POST['startDate'];
-	$date = DateTime::createFromFormat('m/d/Y',$startDate);
-	$start_date = $date->format("Y-m-d");
+if (!empty($_POST['startDate']) && !empty($_POST['endDate'])) {
 
+	$start_date = parseReportDate($_POST['startDate']);
+	$end_date = parseReportDate($_POST['endDate']);
 
-	$endDate = $_POST['endDate'];
-	$format = DateTime::createFromFormat('m/d/Y',$endDate);
-	$end_date = $format->format("Y-m-d");
+	if (!$start_date || !$end_date) {
+		echo '<p class="text-danger">Invalid date format. Use MM/DD/YYYY or pick from calendar.</p>';
+		exit;
+	}
 
-	$sql = "SELECT * FROM orders WHERE order_date >= '$start_date' AND order_date <= '$end_date' ORDER BY order_id DESC limit 50";
-	$query = $connect->query($sql);
+	// Single query: orders + profit per order (no N+1).
+	$sql = "SELECT o.order_id, o.order_date, o.client_name, o.client_contact, o.grand_total,
+	        COALESCE(SUM((oi.rate - (oi.rate * COALESCE(oi.percentage,0) / 100) - COALESCE(p.purchase,0)) * oi.quantity), 0) AS totalprofit
+	        FROM orders o
+	        LEFT JOIN order_item oi ON oi.order_id = o.order_id
+	        LEFT JOIN product p ON p.product_id = oi.product_id
+	        WHERE o.order_date >= ? AND o.order_date <= ?
+	        GROUP BY o.order_id, o.order_date, o.client_name, o.client_contact, o.grand_total
+	        ORDER BY o.order_id DESC
+	        LIMIT 500";
+	$stmt = $connect->prepare($sql);
+	$stmt->bind_param('ss', $start_date, $end_date);
+	$stmt->execute();
+	$query = $stmt->get_result();
 
 	$table = '
 	<table border="1" cellspacing="0" cellpadding="0" style="width:100%;">
@@ -23,43 +48,42 @@ if($_POST) {
 			<th>Order ID</th>
 			<th>Contact</th>
 			<th>Grand Total</th>
-			<th>Profit </th>
-		</tr>
+			<th>Profit</th>
+		</tr>';
+	$totalAmount = 0;
+	$totalpro = 0;
+	$hasRows = false;
+	while ($result = $query->fetch_assoc()) {
+		$hasRows = true;
+		$profit = $result['totalprofit'] !== null ? (float) $result['totalprofit'] : 0.0;
+		$table .= '<tr>
+			<td><center>' . htmlspecialchars($result['order_date']) . '</center></td>
+			<td><center>' . htmlspecialchars($result['order_id']) . '</center></td>
+			<td><center>' . htmlspecialchars($result['client_name'] . $result['client_contact']) . '</center></td>
+			<td><center>' . htmlspecialchars($result['grand_total']) . '</center></td>
+			<td><center>' . $profit . '</center></td>
+		</tr>';
+		$totalAmount += (float) $result['grand_total'];
+		$totalpro += $profit;
+	}
+	$stmt->close();
 
-		<tr>';
-		$totalAmount = "";
-		$totalpro = "";
-		while ($result = $query->fetch_assoc()) {
+	if (!$hasRows) {
+		$table .= '<tr><td colspan="5"><center>No orders found for this date range.</center></td></tr>';
+	}
 
-			$profit = mysqli_fetch_assoc(mysqli_query($dbc,"SELECT SUM(((order_item.rate - (order_item.rate * order_item.percentage / 100) - product.purchase) * order_item.quantity)) AS totalprofit FROM orders
-							INNER JOIN order_item ON order_item.order_id = orders.order_id
-							INNER JOIN product ON product.product_id = order_item.product_id
-								WHERE orders.order_id = '$result[order_id]'"));
-
-
-			$table .= '<tr>
-				<td><center>'.$result['order_date'].'</center></td>
-				<td><center>'.$result['order_id'].'</center></td>
-				<td><center>'.$result['client_name'].$result['client_contact'].'</center></td>
-				<td><center>'.$result['grand_total'].'</center></td>
-				<td><center>'.$profit['totalprofit'].'</center></td>
-			</tr>';	
-			$totalAmount += $result['grand_total'];
-			$totalpro += $profit['totalprofit'];
-		}
-		$table .= '
-		</tr>
-
+	$table .= '
 		<tr>
-			<td colspan="3"><center>Total Amount</center></td>
-			<td><center>'.$totalAmount.'</center></td>
-			<td><center>'.$totalpro.'</center></td>
+			<td colspan="3"><center><strong>Total Amount</strong></center></td>
+			<td><center><strong>' . number_format($totalAmount, 2) . '</strong></center></td>
+			<td><center><strong>' . number_format($totalpro, 2) . '</strong></center></td>
 		</tr>
-	</table>
-	';	
+	</table>';
 
 	echo $table;
 
+} else {
+	echo '<p class="text-warning">Please select Start Date and End Date.</p>';
 }
 
 ?>

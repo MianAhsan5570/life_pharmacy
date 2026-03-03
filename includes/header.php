@@ -5,7 +5,7 @@
 <head>
 
 	<title>Life Pharmacy</title>
-
+  <link rel="icon" href="img/logo_Copy.png" type="image/gif" sizes="16x16">
 	<!-- bootstrap -->
 	<link rel="stylesheet" href="assests/bootstrap/css/bootstrap.min.css">
 	<!-- bootstrap theme-->

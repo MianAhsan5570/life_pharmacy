@@ -1,89 +1,77 @@
 <?php
-
 require_once 'core.php';
 
-function parseReportDate($input)
+function parseDate($d)
 {
-	if (empty($input))
-		return null;
-	$formats = array('m/d/Y', 'm/d/y', 'Y-m-d', 'd-m-Y', 'd/m/Y', 'd/m/y');
-	foreach ($formats as $f) {
-		$d = DateTime::createFromFormat($f, trim($input));
-		if ($d)
-			return $d->format('Y-m-d');
-	}
-	$d = new DateTime($input);
-	return $d ? $d->format('Y-m-d') : null;
+  $formats = ['m/d/Y', 'Y-m-d', 'd/m/Y'];
+  foreach ($formats as $f) {
+    $dt = DateTime::createFromFormat($f, $d);
+    if ($dt)
+      return $dt->format('Y-m-d');
+  }
+  return false;
 }
 
-if (!empty($_POST['startDate']) && !empty($_POST['endDate'])) {
+$start = parseDate($_POST['startDate'] ?? '');
+$end = parseDate($_POST['endDate'] ?? '');
 
-	$start_date = parseReportDate($_POST['startDate']);
-	$end_date = parseReportDate($_POST['endDate']);
-
-	if (!$start_date || !$end_date) {
-		echo '<p class="text-danger">Invalid date format. Use MM/DD/YYYY or pick from calendar.</p>';
-		exit;
-	}
-
-	// Single query: orders + profit per order (no N+1).
-	$sql = "SELECT o.order_id, o.order_date, o.client_name, o.client_contact, o.grand_total,
-	        COALESCE(SUM((oi.rate - (oi.rate * COALESCE(oi.percentage,0) / 100) - COALESCE(p.purchase,0)) * oi.quantity), 0) AS totalprofit
-	        FROM orders o
-	        LEFT JOIN order_item oi ON oi.order_id = o.order_id
-	        LEFT JOIN product p ON p.product_id = oi.product_id
-	        WHERE o.order_date >= ? AND o.order_date <= ?
-	        GROUP BY o.order_id, o.order_date, o.client_name, o.client_contact, o.grand_total
-	        ORDER BY o.order_id DESC
-	        LIMIT 500";
-	$stmt = $connect->prepare($sql);
-	$stmt->bind_param('ss', $start_date, $end_date);
-	$stmt->execute();
-	$query = $stmt->get_result();
-
-	$table = '
-	<table border="1" cellspacing="0" cellpadding="0" style="width:100%;">
-		<tr>
-			<th>Order Date</th>
-			<th>Order ID</th>
-			<th>Contact</th>
-			<th>Grand Total</th>
-			<th>Profit</th>
-		</tr>';
-	$totalAmount = 0;
-	$totalpro = 0;
-	$hasRows = false;
-	while ($result = $query->fetch_assoc()) {
-		$hasRows = true;
-		$profit = $result['totalprofit'] !== null ? (float) $result['totalprofit'] : 0.0;
-		$table .= '<tr>
-			<td><center>' . htmlspecialchars($result['order_date']) . '</center></td>
-			<td><center>' . htmlspecialchars($result['order_id']) . '</center></td>
-			<td><center>' . htmlspecialchars($result['client_name'] . $result['client_contact']) . '</center></td>
-			<td><center>' . htmlspecialchars($result['grand_total']) . '</center></td>
-			<td><center>' . $profit . '</center></td>
-		</tr>';
-		$totalAmount += (float) $result['grand_total'];
-		$totalpro += $profit;
-	}
-	$stmt->close();
-
-	if (!$hasRows) {
-		$table .= '<tr><td colspan="5"><center>No orders found for this date range.</center></td></tr>';
-	}
-
-	$table .= '
-		<tr>
-			<td colspan="3"><center><strong>Total Amount</strong></center></td>
-			<td><center><strong>' . number_format($totalAmount, 2) . '</strong></center></td>
-			<td><center><strong>' . number_format($totalpro, 2) . '</strong></center></td>
-		</tr>
-	</table>';
-
-	echo $table;
-
-} else {
-	echo '<p class="text-warning">Please select Start Date and End Date.</p>';
+if (!$start || !$end) {
+  echo "<p class='text-danger'>Invalid date</p>";
+  exit;
 }
 
-?>
+$sql = "SELECT o.order_date,o.order_id,o.client_name,o.client_contact,o.grand_total,
+COALESCE(SUM((oi.rate-(oi.rate*COALESCE(oi.percentage,0)/100)-COALESCE(p.purchase,0))*oi.quantity),0) profit
+FROM orders o
+LEFT JOIN order_item oi ON oi.order_id=o.order_id
+LEFT JOIN product p ON p.product_id=oi.product_id
+WHERE o.order_date BETWEEN ? AND ?
+GROUP BY o.order_id
+ORDER BY o.order_id DESC";
+
+$stmt = $connect->prepare($sql);
+$stmt->bind_param("ss", $start, $end);
+$stmt->execute();
+$res = $stmt->get_result();
+
+$totalSale = 0;
+$totalProfit = 0;
+
+echo "<table id='orderReportTable' class='table table-bordered table-striped'>
+<thead>
+<tr>
+<th>Date</th>
+<th>Order ID</th>
+<th>Client</th>
+<th>Grand Total</th>
+<th>Profit</th>
+</tr>
+</thead><tbody>";
+
+while ($r = $res->fetch_assoc()) {
+  $sale = (float) $r['grand_total'];
+  $profit = (float) $r['profit'];
+
+  echo "<tr>
+<td>{$r['order_date']}</td>
+<td>{$r['order_id']}</td>
+<td>{$r['client_name']} {$r['client_contact']}</td>
+<td>" . number_format($sale, 2) . "</td>
+<td>" . number_format($profit, 2) . "</td>
+</tr>";
+
+  $totalSale += $sale;
+  $totalProfit += $profit;
+}
+
+echo "</tbody>
+<tfoot>
+<tr>
+<th colspan='3'>TOTAL</th>
+<th>" . number_format($totalSale, 2) . "</th>
+<th>" . number_format($totalProfit, 2) . "</th>
+</tr>
+</tfoot>
+</table>";
+
+$stmt->close();

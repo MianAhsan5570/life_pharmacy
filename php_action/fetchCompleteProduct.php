@@ -39,7 +39,20 @@ if ($searchValue !== '' && $params) {
 	$stmt->close();
 }
 
-$sql = "SELECT product_id, product_name, rate, quantity, categories_id, brand_id, status FROM product " . $where . " ORDER BY " . $orderBy . " " . $orderDir . " LIMIT " . $start . ", " . $length;
+$sql = "SELECT 
+            p.product_id, 
+            p.product_name, 
+            p.rate, 
+            p.quantity, 
+            c.categories_name,  -- Changed from categories_id
+            b.brand_name,     -- Changed from brand_id
+            p.status 
+        FROM product p
+        LEFT JOIN categories c ON p.categories_id = c.categories_id
+        LEFT JOIN brands b ON p.brand_id = b.brand_id
+        " . $where . " 
+        ORDER BY " . $orderBy . " " . $orderDir . " 
+        LIMIT " . $start . ", " . $length;
 if ($params && $types) {
 	$stmt = $connect->prepare($sql);
 	$stmt->bind_param($types, ...$params);
@@ -56,7 +69,7 @@ if ($result && $result->num_rows > 0) {
 		$checkbox = '<input type="checkbox" name="check[]" value="' . $pid . '">';
 		$editLink = '<a href="addproduct.php?i=' . $pid . '" target="_blank">Edit</a>';
 		$delLink = '<a href="deleteproduct.php?i=' . $pid . '" target="_blank"><button type="button" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button></a>';
-		$output['data'][] = array($checkbox, $row['product_id'], $row['product_name'], $row['rate'], $row['quantity'], $row['categories_id'], $row['brand_id'], $row['status'], $editLink, $delLink);
+		$output['data'][] = array($checkbox, $row['product_id'], $row['product_name'], $row['rate'], $row['quantity'], $row['categories_name'], $row['brand_name'], $row['status'], $editLink, $delLink);
 	}
 	if ($params && isset($stmt))
 		$stmt->close();

@@ -1,4 +1,4 @@
-<!-- ALTER TABLE orders 
+p<!-- ALTER TABLE orders 
 ADD INDEX idx_client_contact (client_contact); -->
 
 

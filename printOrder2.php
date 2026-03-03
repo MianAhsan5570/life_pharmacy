@@ -198,8 +198,7 @@ echo $fetchCategory['categories_name'];
 <p style="font-size: 22px;"> 0300-7225467</p>
 
 <hr/>
-<p style="margin-top:0px;font-size:15px"><strong>Software Developed By: <br/> SAM'Z Creation(0345-7573667)</strong></p>
-</div> <br/> 
+<p style="margin-top:0px;font-size:15px"><strong>Software Developed By: <br/> TheWebConcept(0313-7573667)</strong></p></div> <br/> 
 <?php
 }
 ?>

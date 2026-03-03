@@ -1,242 +1,202 @@
 <?php
 include_once "includes/header.php";
+
+// Check connection
+if (!$dbc) {
+	die("Database connection failed: " . mysqli_connect_error());
+}
 ?>
 
-<script type="text/javascript">
-	$(document).ready(function () {
-		$('#myTable').DataTable();
-	});
-</script>
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+	.dataTables_wrapper {
+		padding: 10px;
+	}
+
+	.dt-buttons .btn {
+		margin-right: 5px;
+	}
+
+	.table-responsive {
+		overflow-x: auto;
+	}
+</style>
 
 <div class="row">
-	<div class=""><?= @$msg; ?></div>
-	<?php
-	if (@$_GET['i']) {
-		$productId = $_GET['i'];
-		$selectProduct = "SELECT * FROM product WHERE product_id = '$productId' ";
-		$row = mysqli_fetch_assoc(mysqli_query($dbc, $selectProduct));
-
-		$pro_name = $row['product_name'];
-		$pro_rate = $row['rate'];
-		$pro_q = $row['quantity'];
-		$category = $row['categories_id'];
-		$brand = $row['brand_id'];
-		$purchase = $row['purchase'];
-		$product_type = $row['deal'];
-
-	}
-	?>
-	<div class="col-sm-4 hidden">
-		<div class="panel panel-info">
-			<div class="panel panel-heading" align="center"><em>Add Product</em></div>
-			<div class="panel panel-body">
-				<form action="" method="post">
-
-
-
-					<div class="form-group">
-						<label for="email">Product name:</label>
-						<input type="text" class="form-control" autofocus="" id="email" name="productName"
-							value="<?= @$pro_name ?>">
-					</div>
-					<div class="form-group">
-						<label for="pwd">Purchase Rate:</label>
-						<input type="text" class="form-control" id="pwd" name="purchase" value="<?= @$purchase ?>">
-					</div>
-					<div class="form-group">
-						<label for="pwd">Sale Rate:</label>
-						<input type="text" class="form-control" id="pwd" name="rate" value="<?= @$pro_rate ?>">
-					</div>
-
-					<div class="form-group">
-						<label for="pwd">Quantity:</label>
-						<input type="text" class="form-control" id="pwd" name="quantity" value="<?= @$pro_q ?>">
-					</div>
-					<div class="form-group">
-						<label for="pwd">Category</label>
-
-						<select class="form-control" autocomplete="off" required id="editCategoryName"
-							name="categoryName">
-							<!--  <select type="text" class="form-control"   > -->
-
-
-							<?php
-
-							$sql = "SELECT categories_id, categories_name, categories_active, categories_status FROM categories WHERE categories_status = 1 AND categories_active = 1";
-							$result = $connect->query($sql);
-
-							while ($row = $result->fetch_array()) {
-								$selected = ($row[0] == $category) ? "selected" : "";
-								echo "<option " . $selected . " value='" . $row[0] . "'>" . $row[1] . "</option>";
-							} // while
-							
-							?>
-							<!--  </select> -->
-						</select>
-					</div>
-					<div class="form-group">
-						<label for="pwd">Brand</label>
-						<select class="form-control" autocomplete="off" required id="editBrandName" name="brandName">
-
-
-							<?php
-
-							$sql = "SELECT brand_id, brand_name, brand_active, brand_status FROM brands WHERE brand_status = 1 AND brand_active = 1";
-							$result = $connect->query($sql);
-
-							while ($row = $result->fetch_array()) {
-								$selected = ($row[0] == $brand) ? "selected" : "";
-								echo "<option " . $selected . " value='" . $row[0] . "'>" . $row[1] . "</option>";
-							} // while
-							
-							?>
-						</select>
-					</div>
-					<div class="form-group">
-						<label for="pwd">Status</label>
-						<select class="form-control" name="productStatus">
-
-							<option value="1">Available</option>
-							<option value="2">Not Available</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label for="pwd">Type</label>
-						<label class="radio-inline">
-							<input type="radio" <?= @($product_type == "0") ? "checked" : "" ?> value="0" name="product_type"
-								checked>Product
-						</label>
-						<label class="radio-inline">
-							<input type="radio" <?= @($product_type == "1") ? "checked" : "" ?> value="1"
-								name="product_type">Deal
-						</label>
-					</div>
-					<?php
-					if (isset($_GET['i'])) {
-						?>
-						<input type="submit" name="editproduct" class="btn btn-info" value="Edit product">
-						<?php
-					} else {
-						?>
-						<input type="submit" name="addproduct" class="btn btn-success" value="Add product">
-						<?php
-					}
-					?>
-				</form>
-			</div>
+	<?php if (!empty($msg)): ?>
+		<div class="col-12">
+			<div class="alert alert-info"><?= htmlspecialchars($msg) ?></div>
 		</div>
-
-	</div> <!-- col-sm-4 end -->
-
+	<?php endif; ?>
 
 	<div class="col-sm-12">
 		<div class="panel panel-danger">
-			<div class="panel panel-heading" align="center"><em>Show Product</em></div>
-			<div class="panel panel-body">
+			<div class="panel-heading" align="center">
+				<h4><em>Product List</em></h4>
+			</div>
+			<div class="panel-body">
 				<div class="responseAlert"></div>
-				<table class="table" class="table-responsive" id="example">
-
-					<thead>
-						<tr class="">
-							<th>Product ID</th>
-							<th>Product Name</th>
-
-							<th>Product Sale Rate</th>
-							<th>Alert At</th>
-							<th>Option</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-						$q = mysqli_query($dbc, "SELECT  product.*,categories.*,brands.* FROM product INNER JOIN categories ON product.categories_id=categories.categories_id INNER JOIN brands ON product.brand_id=brands.brand_id   WHERE product.status = 1 ORDER BY product.product_id DESC  ");
-						while ($r = mysqli_fetch_assoc($q)):
-							//$customer_id = $r['customer_id'];
-							?>
+				<div class="table-responsive">
+					<table class="table table-striped table-bordered" id="productsTable">
+						<thead class="table-dark">
 							<tr>
-								<td contenteditable='false'><?= $r['product_id'] ?></td>
-								<td contenteditable='true' class="text-capitalize"><?= $r['product_name'] ?></td>
-								<td contenteditable='true' class="text-lowercase"><?= $r['rate'] ?></td>
-								<td contenteditable='true'><?= $r['alert_at'] ?></td>
-								<td contenteditable='false'><a href="addproduct.php?i=<?= $r['product_id']; ?>"> <button
-											class="btn btn-primary"><span
-												class="glyphicon glyphicon-edit"></span>Edit</button></a>
-									<?php if (@$r['deal'] == 1): ?>
-
-
-										<a href="deals.php?pro_id=<?= $r['product_id']; ?>" target="_blank"> <button
-												class="btn btn-warning"><span class="glyphicon glyphicon-plus"></span>Add
-												Incre</button></a>
-									<?php endif ?>
-								</td>
-
+								<th>ID</th>
+								<th>Product Name</th>
+								<th>Category</th>
+								<th>Brand</th>
+								<th>Sale Rate</th>
+								<th>Alert At</th>
+								<th>Actions</th>
 							</tr>
-						<?php endwhile; ?>
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							<?php
+							// Select only the columns needed
+							$sql = "
+                                SELECT 
+                                    p.product_id, p.product_name, p.rate, p.alert_at,
+                                    c.categories_name,
+                                    b.brand_name
+                                FROM product p
+                                INNER JOIN categories c ON p.categories_id = c.categories_id
+                                INNER JOIN brands b ON p.brand_id = b.brand_id
+                                WHERE p.status = 1
+                                ORDER BY p.product_id DESC
+                            ";
+
+							$result = mysqli_query($dbc, $sql);
+
+							if (!$result) {
+								die("Query failed: " . mysqli_error($dbc));
+							}
+
+							if (mysqli_num_rows($result) > 0):
+								while ($row = mysqli_fetch_assoc($result)):
+									?>
+									<tr>
+										<td><?= htmlspecialchars($row['product_id']) ?></td>
+										<td class="text-capitalize"><?= htmlspecialchars($row['product_name']) ?></td>
+										<td><?= htmlspecialchars($row['categories_name']) ?></td>
+										<td><?= htmlspecialchars($row['brand_name']) ?></td>
+										<td><?= number_format($row['rate'], 2) ?></td>
+										<td><?= htmlspecialchars($row['alert_at']) ?></td>
+										<td>
+											<div class="btn-group" role="group">
+												<a href="addproduct.php?i=<?= $row['product_id'] ?>"
+													class="btn btn-sm btn-primary">
+													<span class="glyphicon glyphicon-edit"></span> Edit
+												</a>
+												<?php if (isset($row['deal']) && $row['deal'] == 1): ?>
+													<a href="deals.php?pro_id=<?= $row['product_id'] ?>" target="_blank"
+														class="btn btn-sm btn-warning">
+														<i class="fas fa-plus"></i> Add Incre
+													</a>
+												<?php endif; ?>
+											</div>
+										</td>
+									</tr>
+								<?php
+								endwhile;
+							else:
+								?>
+								<tr>
+									<td colspan="7" class="text-center">No products found.</td>
+								</tr>
+							<?php endif; ?>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
+	</div>
+</div>
 
-	</div> <!-- col-sm-8 end -->
 
+<!-- DataTables + Extensions -->
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
 
-</div><!-- row end -->
+<!-- Export dependencies -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+
+<script>
+	$(document).ready(function () {
+		var table = $('#productsTable').DataTable({
+			"responsive": true,
+			"pageLength": 25,
+			"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+			"order": [[0, "desc"]],
+
+			// Buttons configuration
+			dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'B>>" +
+				"<'row'<'col-sm-12'tr>>" +
+				"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+
+			buttons: [
+				{
+					extend: 'excelHtml5',
+					text: '<i class="fas fa-file-excel"></i> Excel',
+					title: 'Products_List_<?= date('Y-m-d') ?>',
+					className: 'btn btn-success btn-sm',
+					exportOptions: {
+						columns: [0, 1, 2, 3, 4, 5]
+					}
+				},
+				{
+					extend: 'pdfHtml5',
+					text: '<i class="fas fa-file-pdf"></i> PDF',
+					title: 'Products_List_<?= date('Y-m-d') ?>',
+					orientation: 'landscape',
+					pageSize: 'A4',
+					className: 'btn btn-danger btn-sm',
+					exportOptions: {
+						columns: [0, 1, 2, 3, 4, 5]
+					}
+				},
+				{
+					extend: 'print',
+					text: '<i class="fas fa-print"></i> Print',
+					className: 'btn btn-info btn-sm',
+					exportOptions: {
+						columns: [0, 1, 2, 3, 4, 5]
+					}
+				}
+			],
+
+			"language": {
+				"processing": "<i class='fa fa-spinner fa-spin fa-2x'></i> Loading...",
+				"lengthMenu": "Show _MENU_ entries",
+				"zeroRecords": "No products found",
+				"info": "Showing _START_ to _END_ of _TOTAL_ products",
+				"infoEmpty": "Showing 0 to 0 of 0 products",
+				"infoFiltered": "(filtered from _MAX_ total products)",
+				"search": "Search:",
+				"paginate": {
+					"first": "First",
+					"last": "Last",
+					"next": "Next",
+					"previous": "Previous"
+				}
+			}
+		});
+
+		// Remove server-side processing since we're loading all data at once
+		// You were mixing client-side and server-side processing
+
+		// Add Bootstrap styling to DataTables elements
+		$('.dt-buttons').addClass('btn-group');
+		$('.dt-button').addClass('btn');
+	});
+</script>
 
 <?php
-if (isset($_POST['addproduct'])) {
-
-
-	$productName = $_POST['productName'];
-	$productImage = 'abcd';
-	$quantity = $_POST['quantity'];
-	$rate = $_POST['rate'];
-	$brandName = $_POST['brandName'];
-	$categoryName = $_POST['categoryName'];
-	$productStatus = $_POST['productStatus'];
-	$purchase = $_POST['purchase'];
-	$product_type = $_POST['product_type'];
-
-	$sql = "INSERT INTO product (product_name, product_image, brand_id, categories_id, quantity, rate, purchase ,active, status,deal) 
-				VALUES ('$productName', '$productImage', '$brandName', '$categoryName', '$quantity', '$rate', '$purchase', '1', 1,'$product_type')";
-
-	if (mysqli_query($dbc, $sql)) {
-		$msg = "<label class='label label-success'>Product Added</label>";
-		echo "<script>alert('Product Added')</script>";
-		echo '<script>window.location.assign("addproduct.php")</script>';
-	} else {
-		$msg = "<label class='label label-warning'>Error.....!</label>";
-	}
-
-
-}
-
-if (isset($_POST['editproduct'])) {
-	$productId = $_GET['i'];
-	$productName = $_POST['productName'];
-	$productImage = 'abcd';
-	$quantity = $_POST['quantity'];
-	$rate = $_POST['rate'];
-	$brandName = $_POST['brandName'];
-	$categoryName = $_POST['categoryName'];
-	$productStatus = $_POST['productStatus'];
-	$purchase = $_POST['purchase'];
-	$product_type = $_POST['product_type'];
-
-
-	$sql = "UPDATE product SET product_name = '$productName', brand_id = '$brandName', categories_id = '$categoryName', quantity = '$quantity', rate = '$rate', active = '$productStatus', status = 1, purchase = '$purchase',deal='$product_type' WHERE product_id = $productId ";
-
-	if (mysqli_query($dbc, $sql)) {
-		$msg = "<label class='label label-success'>Product Added</label>";
-		echo "<script>alert('Product Updated')</script>";
-		echo '<script>window.location.assign("addproduct.php")</script>';
-	} else {
-		$msg = "<label class='label label-warning'>Error.....!</label>";
-	}
-}
-
-
-?>
-
-<?php
-
 include_once "includes/footer.php";
 ?>

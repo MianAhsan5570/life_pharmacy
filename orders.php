@@ -136,25 +136,34 @@
 										<td style="margin-left:20px;">
 											<div class="form-group">
 
-												<select class="form-control" name="productName[]" id="productName<?php echo $x; ?>"
-													onchange="getProductData(<?php echo $x; ?>)">
+												<select class="form-control product-select" name="productName[]" id="productName<?= $x; ?>"
+													onchange="getProductData(<?= $x; ?>)">
 													<option value="">~~SELECT~~</option>
+
 													<?php
-													$productSql = "SELECT * FROM product WHERE active = 1 ORDER BY product_name ASC ";
-													$productData = $connect->query($productSql);
+													$sql = "
+																SELECT 
+																	p.product_id,
+																	p.product_name,
+																	c.categories_name
+																FROM product p
+																LEFT JOIN categories c 
+																	ON c.categories_id = p.categories_id
+																WHERE p.active = 1
+																ORDER BY p.product_name ASC
+															";
 
-													while ($row = $productData->fetch_array()) {
-														$product_id = $row['product_id'];
-														$fetchProduct = mysqli_fetch_assoc(mysqli_query($dbc, "SELECT * FROM product WHERE product_id='$product_id'"));
-														$fetchCategory = mysqli_fetch_assoc(mysqli_query($dbc, "SELECT * FROM categories WHERE categories_id='$fetchProduct[categories_id]'"));
-														// for category end	 		
-														echo "<option value='" . $row['product_id'] . "' id='changeProduct'>" . $row['product_name'];
-														$category_show = $fetchCategory['categories_name'];
-														echo "($category_show)</option>";
+													$result = mysqli_query($dbc, $sql);
+
+													while ($row = mysqli_fetch_assoc($result)) {
+														$category = $row['categories_name'] ?? '';
+														echo "<option value='{$row['product_id']}'>
+																	{$row['product_name']} ({$category})
+															  </option>";
 													}
-
 													?>
 												</select>
+
 											</div>
 										</td>
 										<td style="padding-left:20px;">
@@ -333,7 +342,7 @@
 							</thead>
 						</table>
 
-				<?php
+					<?php
 					// /else manage order
 				} else if ($_GET['o'] == 'editOrd') {
 					// get order
@@ -716,3 +725,4 @@
 	?>
 
 <?php require_once 'includes/footer.php'; ?>
+

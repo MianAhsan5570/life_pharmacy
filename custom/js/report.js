@@ -1,59 +1,48 @@
-$(document).ready(function() {
-	// order date picker
-	$("#startDate").datepicker();
-	// order date picker
-	$("#endDate").datepicker();
+$(document).ready(function () {
+	$(function () {
 
-	$("#getOrderReportForm").unbind('submit').bind('submit', function() {
-		
-		var startDate = $("#startDate").val();
-		var endDate = $("#endDate").val();
+		$("#startDate,#endDate").datepicker({ dateFormat: "mm/dd/yy" });
 
-		if(startDate == "" || endDate == "") {
-			if(startDate == "") {
-				$("#startDate").closest('.form-group').addClass('has-error');
-				$("#startDate").after('<p class="text-danger">The Start Date is required</p>');
-			} else {
-				$(".form-group").removeClass('has-error');
-				$(".text-danger").remove();
-			}
+		$("#getOrderReportForm").submit(function (e) {
+			e.preventDefault();
 
-			if(endDate == "") {
-				$("#endDate").closest('.form-group').addClass('has-error');
-				$("#endDate").after('<p class="text-danger">The End Date is required</p>');
-			} else {
-				$(".form-group").removeClass('has-error');
-				$(".text-danger").remove();
-			}
-		} else {
-			$(".form-group").removeClass('has-error');
-			$(".text-danger").remove();
+			$("#orderReportResult").html("<p class='text-info'>Loading...</p>");
 
-			var form = $(this);
+			$.post("php_action/getOrderReport.php", $(this).serialize(), function (data) {
+				$("#orderReportResult").html(data);
 
-			$.ajax({
-				url: form.attr('action'),
-				type: form.attr('method'),
-				data: form.serialize(),
-				dataType: 'text',
-				success:function(response) {
-					var mywindow = window.open('', 'Stock Management System', 'height=400,width=600');
-	        mywindow.document.write('<html><head><title>Order Report Slip</title>');        
-	        mywindow.document.write('</head><body>');
-	        mywindow.document.write(response);
-	        mywindow.document.write('</body></html>');
+				$('#orderReportTable').DataTable({
+					dom: 'Bfrtip',
+					pageLength: 100,
+					buttons: [
+						{
+							extend: 'excelHtml5',
+							text: '<span id="excelBtnText">Save as Excel</span>',
+							title: 'Order Report',
+							footer: true,
+							action: function (e, dt, node, config) {
+								// Show loader inside button
+								$('#excelBtnText').html('<i class="glyphicon glyphicon-refresh glyphicon-spin"></i> Generating...');
 
-	        mywindow.document.close(); // necessary for IE >= 10
-	        mywindow.focus(); // necessary for IE >= 10
+								// Use default action
+								$.fn.dataTable.ext.buttons.excelHtml5.action.call(this, e, dt, node, config);
 
-	        mywindow.print();
-	        mywindow.close();
-				} // /success
-			});	// /ajax
+								// Reset text after a short delay (Excel generation is instant usually)
+								setTimeout(function () {
+									$('#excelBtnText').html('Save as Excel');
+								}, 1500); // adjust time if needed
+							}
+						}
+					],
+					destroy: true
+				});
 
-		} // /else
 
-		return false;
+
+			});
+		});
+
 	});
+
 
 });

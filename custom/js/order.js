@@ -1,6 +1,31 @@
 localStorage.clear();
 var manageOrderTable;
 
+// --- Product cache -------------------------------------------------
+// Previously every "Add Row" click AND every product selection fired a
+// fresh AJAX request to the server. With 10+ rows that meant 20+ round
+// trips just to build the form. Now the product list is fetched ONCE
+// per page load and reused from memory for every row and every
+// selection after that.
+var productsCache = null;
+
+function loadProducts(callback) {
+	if (productsCache !== null) {
+		callback(productsCache); // cache hit — no server request
+		return;
+	}
+	$.ajax({
+		url: 'php_action/fetchProductData.php',
+		type: 'post',
+		dataType: 'json',
+		success: function (response) {
+			productsCache = response.data; // cache miss — store for next time
+			callback(productsCache);
+		}
+	});
+}
+// ---------------------------------------------------------------------
+
 $(document).ready(function () {
 
 	var divRequest = $(".div-request").text();
@@ -421,6 +446,9 @@ function printOrder2(orderId = null) {
 
 // /print order function
 var focus_i = 1;
+
+// --- addRow: now reads from the cached product list instead of ------
+// hitting the server on every click.
 function addRow() {
 
 	$("#addRowBtn").button("loading");
@@ -443,69 +471,64 @@ function addRow() {
 		arrayNumber = 0;
 	}
 
-	$.ajax({
-		url: 'php_action/fetchProductData.php',
-		type: 'post',
-		dataType: 'json',
-		success: function (response) {
-			$("#addRowBtn").button("reset");
+	loadProducts(function (response) {
+		$("#addRowBtn").button("reset");
 
-			var tr = '<tr id="row' + count + '" class="' + arrayNumber + '">' +
-				'<td>' +
-				'<div class="form-group">' +
+		var tr = '<tr id="row' + count + '" class="' + arrayNumber + '">' +
+			'<td>' +
+			'<div class="form-group">' +
 
-				'<select class="form-control" name="productName[]"  id="productName' + count + '" onchange="getProductData(' + count + ')" >'
-			console.log(response);
-			$.each(response.data, function (index, value) {
-				tr += '<option value="' + value["product_id"] + '">' + value["product_name"] + '(' + value["categories_name"] + '</option>';
-			});
+			'<select class="form-control" name="productName[]"  id="productName' + count + '" onchange="getProductData(' + count + ')" >'
+		console.log(response);
+		$.each(response, function (index, value) {
+			tr += '<option value="' + value["product_id"] + '">' + value["product_name"] + '(' + value["categories_name"] + '</option>';
+		});
 
-			tr += '</select>' +
+		tr += '</select>' +
 
-				'</div>' +
-				'</td>' +
-				'<td style="padding-left:20px;"">' +
-				'<input type="text" name="rate[]"  id="rate' + count + '" autocomplete="off"  class="form-control" />' +
-				'</div>'
-				+
-				'<input type="hidden" name="rateValue[]" id="rateValue' + count + '" autocomplete="off" class="form-control" />' +
+			'</div>' +
+			'</td>' +
+			'<td style="padding-left:20px;"">' +
+			'<input type="text" name="rate[]"  id="rate' + count + '" autocomplete="off"  class="form-control" />' +
+			'</div>'
+			+
+			'<input type="hidden" name="rateValue[]" id="rateValue' + count + '" autocomplete="off" class="form-control" />' +
 
-				'</td style="padding-left:20px;">' +
-				'<td style="padding-left:20px;">' +
+			'</td style="padding-left:20px;">' +
+			'<td style="padding-left:20px;">' +
 
-				'<input type="text" name="quantity[]" id="quantity' + count + '" onkeyup="getTotal(' + count + ')" autocomplete="off" class="form-control" min="1" />' +
-				'</td>' +
-				'<td style="padding-left:20px;">' +
+			'<input type="text" name="quantity[]" id="quantity' + count + '" onkeyup="getTotal(' + count + ')" autocomplete="off" class="form-control" min="1" />' +
+			'</td>' +
+			'<td style="padding-left:20px;">' +
 
-				'<input type="text" name="percentage[]" id="percentage' + count + '" onkeyup="getTotal(' + count + ')" autocomplete="off" class="form-control" />' +
-				'</td>' +
-				'<td style="padding-left:20px;">' +
-				'<input type="text" readonly name="stock[]" id="quantity_show' + count + '" autocomplete="off" class="form-control" />' +
-				'</td>' +
-				'<td style="padding-left:20px;">' +
-				'<input type="text" name="total[]" id="total' + count + '" autocomplete="off" class="form-control" readonly />' +
-				'<input type="hidden" name="totalValue[]" id="totalValue' + count + '" autocomplete="off" class="form-control" />' +
-				'</td>' +
-				'<td>' +
-				'<button class="btn btn-default removeProductRowBtn" type="button" onclick="removeProductRow(' + count + ')"><i class="glyphicon glyphicon-trash"></i></button>' +
-				'</td>' +
-				'<td>' +
-				'<span id="imgVal' + count + '"></span>' +
-				'</td>' +
+			'<input type="text" name="percentage[]" id="percentage' + count + '" onkeyup="getTotal(' + count + ')" autocomplete="off" class="form-control" />' +
+			'</td>' +
+			'<td style="padding-left:20px;">' +
+			'<input type="text" readonly name="stock[]" id="quantity_show' + count + '" autocomplete="off" class="form-control" />' +
+			'</td>' +
+			'<td style="padding-left:20px;">' +
+			'<input type="text" name="total[]" id="total' + count + '" autocomplete="off" class="form-control" readonly />' +
+			'<input type="hidden" name="totalValue[]" id="totalValue' + count + '" autocomplete="off" class="form-control" />' +
+			'</td>' +
+			'<td>' +
+			'<button class="btn btn-default removeProductRowBtn" type="button" onclick="removeProductRow(' + count + ')"><i class="glyphicon glyphicon-trash"></i></button>' +
+			'</td>' +
+			'<td>' +
+			'<span id="imgVal' + count + '"></span>' +
+			'</td>' +
 
-				'</tr>';
+			'</tr>';
 
 
-			if (tableLength > 0) {
-				$("#productTable tbody tr:last").after(tr);
-				focus_i = focus_i + 1;
-				$("#productName" + focus_i).focus();
-			} else {
-				$("#productTable tbody").append(tr);
-			}
+		if (tableLength > 0) {
+			$("#productTable tbody tr:last").after(tr);
+			focus_i = focus_i + 1;
+			$("#productName" + focus_i).focus();
+		} else {
+			$("#productTable tbody").append(tr);
+		}
 
-		} // /success
-	}); // get the product data
+	}); // loadProducts (cache hit after first call)
 
 } // /add row
 
@@ -520,7 +543,9 @@ function removeProductRow(row = null) {
 	}
 }
 
-// select on product data
+// --- getProductData: now looks the product up in the in-memory cache -
+// instead of firing an AJAX request every time a product is selected.
+// Falls back to the server only if a product somehow isn't in the cache.
 function getProductData(row = null) {
 	if (row) {
 		var productId = $("#productName" + row).val();
@@ -531,75 +556,66 @@ function getProductData(row = null) {
 			$("#quantity" + row).val("");
 			$("#total" + row).val("");
 
-			// remove check if product name is selected
-			// var tableProductLength = $("#productTable tbody tr").length;			
-			// for(x = 0; x < tableProductLength; x++) {
-			// 	var tr = $("#productTable tbody tr")[x];
-			// 	var count = $(tr).attr('id');
-			// 	count = count.substring(3);
-
-			// 	var productValue = $("#productName"+row).val()
-
-			// 	if($("#productName"+count).val() == "") {					
-			// 		$("#productName"+count).find("#changeProduct"+productId).removeClass('div-hide');	
-			// 		console.log("#changeProduct"+count);
-			// 	}											
-			// } // /for
-
 		} else {
-			$.ajax({
-				url: 'php_action/fetchSelectedProduct.php',
-				type: 'post',
-				data: { productId: productId },
-				dataType: 'json',
-				success: function (response) {
-					// setting the rate value into the rate input field
-
-					$("#rate" + row).val(response.rate);
-					$("#rateValue" + row).val(response.rate);
-
-					$("#quantity" + row).val(1);
-					//console.log(response.categories_id);
-					if (response.categories_id == '62') {
-						$("#percentage" + row).val('0');
-						$("#percentage" + row).attr('readonly', 'readonly');
-					} else {
-						$("#percentage" + row).val(response.percentage);
-						$("#percentage" + row).removeAttr('readonly');
+			loadProducts(function (products) {
+				var product = null;
+				for (var i = 0; i < products.length; i++) {
+					if (products[i].product_id == productId) {
+						product = products[i];
+						break;
 					}
+				}
 
-					$("#quantity_show" + row).val(response.quantity);
-
-					var total = Number(response.rate) * 1;
-					total = total.toFixed(2);
-					$("#total" + row).val(total);
-					$("#totalValue" + row).val(total);
-
-					// check if product name is selected
-					// var tableProductLength = $("#productTable tbody tr").length;					
-					// for(x = 0; x < tableProductLength; x++) {
-					// 	var tr = $("#productTable tbody tr")[x];
-					// 	var count = $(tr).attr('id');
-					// 	count = count.substring(3);
-
-					// 	var productValue = $("#productName"+row).val()
-
-					// 	if($("#productName"+count).val() != productValue) {
-					// 		// $("#productName"+count+" #changeProduct"+count).addClass('div-hide');	
-					// 		$("#productName"+count).find("#changeProduct"+productId).addClass('div-hide');								
-					// 		console.log("#changeProduct"+count);
-					// 	}											
-					// } // /for
-
-					subAmount();
-				} // /success
-			}); // /ajax function to fetch the product data	
+				if (product) {
+					applyProductData(row, product);
+				} else {
+					// fallback — should rarely fire since the dropdown
+					// itself is built from the same cached list
+					$.ajax({
+						url: 'php_action/fetchSelectedProduct.php',
+						type: 'post',
+						data: { productId: productId },
+						dataType: 'json',
+						success: function (response) {
+							applyProductData(row, response);
+						} // /success
+					}); // /ajax function to fetch the product data	
+				}
+			});
 		}
 
 	} else {
 		alert('no row! please refresh the page');
 	}
 } // /select on product data
+
+// Shared logic for filling a row's fields, whether the data came from
+// cache or the fallback AJAX call.
+function applyProductData(row, response) {
+	// setting the rate value into the rate input field
+
+	$("#rate" + row).val(response.rate);
+	$("#rateValue" + row).val(response.rate);
+
+	$("#quantity" + row).val(1);
+	//console.log(response.categories_id);
+	if (response.categories_id == '62') {
+		$("#percentage" + row).val('0');
+		$("#percentage" + row).attr('readonly', 'readonly');
+	} else {
+		$("#percentage" + row).val(response.percentage);
+		$("#percentage" + row).removeAttr('readonly');
+	}
+
+	$("#quantity_show" + row).val(response.quantity);
+
+	var total = Number(response.rate) * 1;
+	total = total.toFixed(2);
+	$("#total" + row).val(total);
+	$("#totalValue" + row).val(total);
+
+	subAmount();
+}
 
 // table total
 function getTotal(row = null) {
@@ -620,20 +636,23 @@ function getTotal(row = null) {
 }
 
 function subAmount() {
-	var tableProductLength = $("#productTable tbody tr").length;
 	var totalSubAmount = 0;
 	var totaldiscount = 0;
 
-	for (x = 0; x < tableProductLength; x++) {
-		var tr = $("#productTable tbody tr")[x];
-		var count = $(tr).attr('id');
-		count = count.substring(3);
-		totaldiscount = Number(totaldiscount) + Number($("#rate" + count).val() / 100) * Number($("#percentage" + count).val());
-		totaldiscount = totaldiscount * Number($("#quantity" + count).val());
-		totaldiscount = totaldiscount.toFixed(2);
-		totalSubAmount = Number(totalSubAmount) + Number($("#total" + count).val());
-	} // /for
+	$("#productTable tbody tr").each(function () {
+		var count = $(this).attr('id').substring(3);
 
+		var rate = Number($("#rate" + count).val()) || 0;
+		var quantity = Number($("#quantity" + count).val()) || 0;
+		var percentage = Number($("#percentage" + count).val()) || 0;
+		var rowTotal = Number($("#total" + count).val()) || 0;
+
+		var rowDiscount = ((rate / 100) * percentage) * quantity;
+		totaldiscount = Number(totaldiscount) + rowDiscount;
+		totalSubAmount = Number(totalSubAmount) + rowTotal;
+	}); // /each
+
+	totaldiscount = totaldiscount.toFixed(2);
 	totalSubAmount = totalSubAmount.toFixed(2);
 
 	// sub total
@@ -653,12 +672,14 @@ function subAmount() {
 	$("#totalAmountValue").val(totalAmount);
 
 	var discount = $("#discount").val();
+	var grandTotal;
 	if (discount) {
-		var grandTotal = Number($("#totalAmount").val()) - Number(discount);
+		grandTotal = Number($("#totalAmount").val()) - Number(discount);
 		grandTotal = grandTotal.toFixed(2);
 		$("#grandTotal").val(grandTotal);
 		$("#grandTotalValue").val(grandTotal);
 	} else {
+		grandTotal = totalAmount;
 		$("#grandTotal").val(totalAmount);
 		$("#grandTotalValue").val(totalAmount);
 	} // /else discount	

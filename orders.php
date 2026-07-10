@@ -1,31 +1,5 @@
-<body>
+	<body>
 	<?php
-	//mac work
-// Turn on output buffering  
-	ob_start();
-
-	//Get the ipconfig details using system commond  
-	system('ipconfig /all');
-
-	// Capture the output into a variable  
-	$mycomsys = ob_get_contents();
-
-	// Clean (erase) the output buffer  
-	ob_clean();
-
-	$find_mac = "Physical";
-	//find the "Physical" & Find the position of Physical text  
-	
-	$pmac = strpos($mycomsys, $find_mac);
-	// Get Physical Address  
-	
-	$macaddress = substr($mycomsys, ($pmac + 36), 17);
-	//echo $macaddress;  
-//Display Mac Address  
-//if ($macaddress=='C0-18-85-3C-84-EC') {
-	
-	//mac work end
-	
 	$date_now = new DateTime();
 	$date2 = new DateTime("01/01/2027");
 
@@ -725,4 +699,3 @@
 	?>
 
 <?php require_once 'includes/footer.php'; ?>
-

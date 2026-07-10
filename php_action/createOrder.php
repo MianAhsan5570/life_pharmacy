@@ -32,39 +32,62 @@ if($_POST) {
 		$orderStatus = true;
 	}
 
-		
-	// echo $_POST['productName'];
-	$orderItemStatus = false;
+	// --- Batched stock update + order_item insert ------------------------
+	// BEFORE: this looped over every product and ran 3 queries per row
+	// (SELECT stock, UPDATE stock, INSERT order_item) — 10 products meant
+	// 30 sequential round trips to the database just for the line items.
+	// That, not the printing, is what was making "Save Changes" feel like
+	// it took 5-7 seconds.
+	//
+	// AFTER: current stock for every product on the order is fetched in
+	// ONE query, the new stock values are computed here in PHP (same
+	// "subtract, floor at 0" rule as before), then ONE UPDATE writes all
+	// the new stock values and ONE INSERT adds all the order_item rows.
+	// That's 3 queries total, no matter whether the order has 1 product
+	// or 50.
+	if (!empty($_POST['productName'])) {
 
-	for($x = 0; $x < count($_POST['productName']); $x++) {			
-		$updateProductQuantitySql = "SELECT product.quantity FROM product WHERE product.product_id = ".$_POST['productName'][$x]."";
-		$updateProductQuantityData = $connect->query($updateProductQuantitySql);
-		
-		
-		while ($updateProductQuantityResult = $updateProductQuantityData->fetch_row()) {
+		$productIds  = $_POST['productName'];
+		$quantities  = $_POST['quantity'];
+		$rates       = $_POST['rate'];
+		$totals      = $_POST['totalValue'];
+		$percentages = $_POST['percentage'];
+		$count       = count($productIds);
 
-			if($updateProductQuantityResult[0] > 0){
-				$updateQuantity[$x] = $updateProductQuantityResult[0] - $_POST['quantity'][$x];
+		$idsList = implode(',', array_map('intval', $productIds));
 
-			}else{
-			
-			$updateQuantity[$x] = 0 ;
-			}							
-				// update product table
-				$updateProductTable = "UPDATE product SET quantity = '".$updateQuantity[$x]."' WHERE product_id = ".$_POST['productName'][$x]."";
-				$connect->query($updateProductTable);
+		// 1. fetch current stock for every product on this order — ONE query
+		$stockResult = $connect->query("SELECT product_id, quantity FROM product WHERE product_id IN ($idsList)");
+		$stockMap = array();
+		while ($r = $stockResult->fetch_assoc()) {
+			$stockMap[$r['product_id']] = $r['quantity'];
+		}
 
-				// add into order_item
-				$orderItemSql = "INSERT INTO order_item (order_id, product_id, quantity, rate, total, order_item_status,percentage) 
-				VALUES ('$order_id', '".$_POST['productName'][$x]."', '".$_POST['quantity'][$x]."', '".$_POST['rate'][$x]."', '".$_POST['totalValue'][$x]."', 1,'".$_POST['percentage'][$x]."')";
+		// 2. compute the new stock for each product (same rule as before:
+		// subtract the ordered quantity if stock > 0, otherwise floor at 0)
+		$caseSql = "";
+		$insertValues = array();
+		for ($x = 0; $x < $count; $x++) {
+			$pid = (int) $productIds[$x];
+			$qty = (int) $quantities[$x];
+			$currentStock = isset($stockMap[$pid]) ? $stockMap[$pid] : 0;
+			$newStock = ($currentStock > 0) ? ($currentStock - $qty) : 0;
 
-				$connect->query($orderItemSql);		
+			$caseSql .= " WHEN $pid THEN $newStock";
 
-				if($x == count($_POST['productName'])) {
-					$orderItemStatus = true;
-				}		
-		} // while	
-	} // /for quantity
+			$rate = $connect->real_escape_string($rates[$x]);
+			$total = $connect->real_escape_string($totals[$x]);
+			$percentage = $connect->real_escape_string($percentages[$x]);
+			$insertValues[] = "($order_id, $pid, $qty, '$rate', '$total', 1, '$percentage')";
+		}
+
+		// 3. one UPDATE for all products on this order
+		$connect->query("UPDATE product SET quantity = CASE product_id $caseSql ELSE quantity END WHERE product_id IN ($idsList)");
+
+		// 4. one INSERT for all order_item rows
+		$connect->query("INSERT INTO order_item (order_id, product_id, quantity, rate, total, order_item_status, percentage) VALUES " . implode(',', $insertValues));
+	}
+	// -----------------------------------------------------------------------
 
 	$valid['success'] = true;
 	$valid['messages'] = "Successfully Added";		

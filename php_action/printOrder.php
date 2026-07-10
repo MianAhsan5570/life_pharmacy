@@ -29,11 +29,19 @@ $paid = $orderData[8];
 $due = $orderData[9];
  $date= mysqli_fetch_assoc(mysqli_query($dbc,"SELECT * FROM orders WHERE order_id = '$orderId'"));
 
-
+// Previously this only pulled order_item + product_name, then the loop
+// below ran TWO more queries per line item (one for the product, one
+// for its category). For a 10-item order that's 20+ extra round trips
+// before the print window even opens. Pulling product.rate,
+// product.categories_id and categories.categories_name in this single
+// JOIN eliminates all of that — now it's just 1 query for every item.
 $orderItemSql = "SELECT order_item.product_id, order_item.rate, order_item.quantity, order_item.total,
-product.product_name, order_item.percentage FROM order_item
-	INNER JOIN product ON order_item.product_id = product.product_id 
- WHERE order_item.order_id = $orderId";
+product.product_name, order_item.percentage, product.rate AS product_rate, product.categories_id,
+categories.categories_name
+FROM order_item
+INNER JOIN product ON order_item.product_id = product.product_id
+LEFT JOIN categories ON categories.categories_id = product.categories_id
+WHERE order_item.order_id = $orderId";
 $orderItemResult = $connect->query($orderItemSql);
 if ( mysqli_num_rows($orderItemResult) > 0) {
 	 $time2 = ($date['orderdatetime']);
@@ -106,24 +114,23 @@ if ( mysqli_num_rows($orderItemResult) > 0) {
 		$gttotal = 0;
 		$gttotaltotaldics = 0;
 		while($row = $orderItemResult->fetch_array()) {
-				$product_id = $row['product_id'];
-				$fetchProduct = mysqli_fetch_assoc(mysqli_query($dbc,"SELECT * FROM product WHERE product_id='$product_id'"));
-				$fetchCategory = mysqli_fetch_assoc(mysqli_query($dbc,"SELECT * FROM categories WHERE categories_id='$fetchProduct[categories_id]'"));
+				// product + category data now comes straight from $row
+				// (via the JOIN above) — no more per-row queries here.
 	 		
 		?>				
 			 <tr>
 				<th><?=$x?></th>
 				<td style="font-size:20px;"><?php echo $row[4]; ?><?php
-if($fetchCategory['categories_name'] == 'offdiscount' OR $fetchCategory['categories_name'] == 'OFFDISCOUNT'){
+if($row['categories_name'] == 'offdiscount' OR $row['categories_name'] == 'OFFDISCOUNT'){
 echo "";
 }else{
-echo "(".$fetchCategory['categories_name'].")";
+echo "(".$row['categories_name'].")";
 } 
  ?>  </td>	
 				
-				<th><?php echo $fetchProduct['rate']; ?></th>
+				<th><?php echo $row['product_rate']; ?></th>
 				<?php
-				$fetchprorate =  $fetchProduct['rate']*$row['quantity'];
+				$fetchprorate =  $row['product_rate']*$row['quantity'];
 				?>
 				<th><?php echo $row[2]; ?></th>
 				 <th><?php 
@@ -140,12 +147,12 @@ echo "(".$fetchCategory['categories_name'].")";
 				?>
 				 	
 				 </th> 
-				<th><?php echo number_format((($fetchProduct['rate']*$row['quantity'])-$totaldiscthis),2);  ?></th>
+				<th><?php echo number_format((($row['product_rate']*$row['quantity'])-$totaldiscthis),2);  ?></th>
 
 
 		<?php
 
-		$gttotal +=  $fetchProduct['rate']*$row['quantity'];
+		$gttotal +=  $row['product_rate']*$row['quantity'];
 		if($row['percentage'] > 0 ){
 		 $gttotaltotaldics +=(($fetchprorate/100)* $row['percentage']);
 		}

@@ -1,5 +1,35 @@
 var focus_i=1;
 
+// --- Product cache ---------------------------------------------------
+// Same idea as order.js: the dropdown list (product_id/name/category)
+// doesn't change between "Add Row" clicks on this page, so fetch it
+// once and reuse it instead of hitting fetchProductData.php every time.
+//
+// NOTE: getProductData() below still calls the server on every product
+// selection — that's intentional. It needs the last purchase_item row
+// (packrate, pack_quantity, discount) which is per-purchase data, not
+// part of the product table, so it can't be cached the same way. Make
+// sure product_id and purchase_item.product_id are indexed (see notes)
+// so that single lookup stays fast.
+var productsCache = null;
+
+function loadProducts(callback) {
+	if (productsCache !== null) {
+		callback(productsCache); // cache hit — no server request
+		return;
+	}
+	$.ajax({
+		url: 'php_action/fetchProductData.php',
+		type: 'post',
+		dataType: 'json',
+		success: function (response) {
+			productsCache = response.data; // cache miss — store for next time
+			callback(productsCache);
+		}
+	});
+}
+// ---------------------------------------------------------------------
+
 
 function removeProductRow(row = null) {
 	if(row) {
@@ -396,6 +426,9 @@ function paymentOrder(orderId = null) {
 		alert('Error ! Refresh the page again');
 	}
 }
+
+// --- addRow: now reads from the cached product list instead of ------
+// hitting the server on every click.
 function addRow() {
 	
 	$("#addRowBtn").button("loading");
@@ -418,98 +451,93 @@ function addRow() {
 		arrayNumber = 0;
 	}
 
-	$.ajax({
-		url: 'php_action/fetchProductData.php',
-		type: 'post',
-		dataType: 'json',
-		success:function(response) {
-			$("#addRowBtn").button("reset");			
+	loadProducts(function(response) {
+		$("#addRowBtn").button("reset");			
 
-			var tr = '<tr id="row'+count+'" class="'+arrayNumber+'">'+			  				
-				'<td>'+
-					'<div class="form-group">'+
-					// '<input list="lst" class="form-control livesearch"  onfocus="myFunction(this)"  name="productName[]" id="productName'+count+'" onchange="getProductData('+count+')" >'+
-					 '<select class="form-control" name="productName[]"  id="productName'+count+'" onchange="getProductData('+count+')" >'+
-					// '<datalist id="lst">	'+
-						'<option value="">~~SELECT~~</option>';
-						;
-						console.log(response);
-						$.each(response.data, function(index, value) {
-							tr += '<option value="'+value["product_id"]+'">'+value["product_name"]+'('+value["categories_name"]+'</option>';							
-						});
+		var tr = '<tr id="row'+count+'" class="'+arrayNumber+'">'+			  				
+			'<td>'+
+				'<div class="form-group">'+
+				// '<input list="lst" class="form-control livesearch"  onfocus="myFunction(this)"  name="productName[]" id="productName'+count+'" onchange="getProductData('+count+')" >'+
+				 '<select class="form-control" name="productName[]"  id="productName'+count+'" onchange="getProductData('+count+')" >'+
+				// '<datalist id="lst">	'+
+					'<option value="">~~SELECT~~</option>';
+					;
+					console.log(response);
+					$.each(response, function(index, value) {
+						tr += '<option value="'+value["product_id"]+'">'+value["product_name"]+'('+value["categories_name"]+'</option>';							
+					});
 													
-					tr += '</select>'+
-					// '<input  name="f_Text" id="f_Text'+count +'" class="form-control" readonly / >'+
-					'</div>'+
-				'</td>'+
-				'<td style="padding-left:20px;">'+
-					
-					'<input type="text" name="pack[]" onkeyup="getTotal('+count+')"  id="pack'+count+'" autocomplete="off"  class="form-control" />'+
-				'<div class="input-group">'+
-    '<span class="input-group-addon">X</span>'+
-					'<input type="text" name="pac_quantity[]" onkeyup="getTotal('+count+')"  id="pac_quantity'+count+'" autocomplete="off"  class="form-control" />'+
+				tr += '</select>'+
+				// '<input  name="f_Text" id="f_Text'+count +'" class="form-control" readonly / >'+
 				'</div>'+
-				'</td>'+
+			'</td>'+
+			'<td style="padding-left:20px;">'+
 				
-				'<td style="padding-left:20px;">'+
-					'<div class="input-group">'+
-					'<input type="text" name="totalpercentage[]" onkeyup="getTotal('+count+')"  id="totalpercentage'+count+'" autocomplete="off"  class="form-control" />'+
-				  
-				  '</div>'+
-				'</td>'+
-				'<td >'+
-									'<input type="text" name="quantity[]" id="quantity'+count+'"  autocomplete="off" onkeyup="getTotal('+count+')" class="form-control" />'+
-					'</div>'
-					+
-					'<input type="hidden" name="rateValue[]" id="rateValue'+count+'" autocomplete="off" class="form-control" />'+
-					//'<div class="input-group"><span class="input-group-addon">Purchase</span><input type="text" readonly name="purchase_rateValue[]" id="purchase_value'+count+'" autocomplete="off" class="form-control" /></div>'+
-					'<div class="input-group"><span class="input-group-addon">S</span><input type="text" readonly name="stock[]" id="quantity_show'+count+'" autocomplete="off" class="form-control" /></div>'+
-				'</td >'+
-				'<td >'+
-					
-					'<input type="text" name="purchase_box[]" onkeyup="getTotal('+count+')"  id="purchase_box'+count+'" autocomplete="off"  class="form-control" />'+
+				'<input type="text" name="pack[]" onkeyup="getTotal('+count+')"  id="pack'+count+'" autocomplete="off"  class="form-control" />'+
+			'<div class="input-group">'+
+    '<span class="input-group-addon">X</span>'+
+				'<input type="text" name="pac_quantity[]" onkeyup="getTotal('+count+')"  id="pac_quantity'+count+'" autocomplete="off"  class="form-control" />'+
+			'</div>'+
+			'</td>'+
+			
+			'<td style="padding-left:20px;">'+
 				'<div class="input-group">'+
-			  						'<span class="input-group-addon">PR</span>'+
-			  						'<input type="text" name="rate[]" onkeyup="getTotal('+count+')" readonly  id="purchase'+count+'" autocomplete="off"  class="form-control" style="width:80px!important" />'+
-			  						'</div>'+
-				'</td>'+
-				'<td >'+
-					'<div class="form-group">'+
-					'<input type="text" name="rate1[]" readonly   id="rate1'+count+'" autocomplete="off"  class="form-control" />'+
-				'</td>'+
-				'<td >'+
-					'<div class="form-group">'+
-					'<input type="text" name="alert[]"   id="alert'+count+'" autocomplete="off"  class="form-control" />'+
-				'</td>'+
-				'<td>'+
-					'<div class="form-group">'+
-					'<input type="date" name="expiry[]"   id="expiry'+count+'"  class="form-control" />'+
-				'</td>'+
-				'<td >'+
-					'<input type="text" name="total[]" id="total'+count+'" autocomplete="off" class="form-control" readonly />'+
-					'<input type="hidden" name="totalValue[]" id="totalValue'+count+'" autocomplete="off" class="form-control" />'+
-				'</td>'+
-				'<td>'+
-					'<button class="btn btn-default removeProductRowBtn" type="button" onclick="removeProductRow('+count+')"><i class="glyphicon glyphicon-trash"></i></button>'+
-				'</td>'+
-				'<td>'+
-					'<span id="imgVal'+count+'"></span>'+
-				'</td>'+
+				'<input type="text" name="totalpercentage[]" onkeyup="getTotal('+count+')"  id="totalpercentage'+count+'" autocomplete="off"  class="form-control" />'+
+			  
+			  '</div>'+
+			'</td>'+
+			'<td >'+
+								'<input type="text" name="quantity[]" id="quantity'+count+'"  autocomplete="off" onkeyup="getTotal('+count+')" class="form-control" />'+
+				'</div>'
+				+
+				'<input type="hidden" name="rateValue[]" id="rateValue'+count+'" autocomplete="off" class="form-control" />'+
+				//'<div class="input-group"><span class="input-group-addon">Purchase</span><input type="text" readonly name="purchase_rateValue[]" id="purchase_value'+count+'" autocomplete="off" class="form-control" /></div>'+
+				'<div class="input-group"><span class="input-group-addon">S</span><input type="text" readonly name="stock[]" id="quantity_show'+count+'" autocomplete="off" class="form-control" /></div>'+
+			'</td >'+
+			'<td >'+
+				
+				'<input type="text" name="purchase_box[]" onkeyup="getTotal('+count+')"  id="purchase_box'+count+'" autocomplete="off"  class="form-control" />'+
+			'<div class="input-group">'+
+		  						'<span class="input-group-addon">PR</span>'+
+		  						'<input type="text" name="rate[]" onkeyup="getTotal('+count+')" readonly  id="purchase'+count+'" autocomplete="off"  class="form-control" style="width:80px!important" />'+
+		  						'</div>'+
+			'</td>'+
+			'<td >'+
+				'<div class="form-group">'+
+				'<input type="text" name="rate1[]" readonly   id="rate1'+count+'" autocomplete="off"  class="form-control" />'+
+			'</td>'+
+			'<td >'+
+				'<div class="form-group">'+
+				'<input type="text" name="alert[]"   id="alert'+count+'" autocomplete="off"  class="form-control" />'+
+			'</td>'+
+			'<td>'+
+				'<div class="form-group">'+
+				'<input type="date" name="expiry[]"   id="expiry'+count+'"  class="form-control" />'+
+			'</td>'+
+			'<td >'+
+				'<input type="text" name="total[]" id="total'+count+'" autocomplete="off" class="form-control" readonly />'+
+				'<input type="hidden" name="totalValue[]" id="totalValue'+count+'" autocomplete="off" class="form-control" />'+
+			'</td>'+
+			'<td>'+
+				'<button class="btn btn-default removeProductRowBtn" type="button" onclick="removeProductRow('+count+')"><i class="glyphicon glyphicon-trash"></i></button>'+
+			'</td>'+
+			'<td>'+
+				'<span id="imgVal'+count+'"></span>'+
+			'</td>'+
 
-			'</tr>';
-			
-			
+		'</tr>';
+		
+		
      
-			if(tableLength > 0) {							
-				$("#productTable tbody tr:last").after(tr);
-				  focus_i=focus_i+1;
+		if(tableLength > 0) {							
+			$("#productTable tbody tr:last").after(tr);
+			  focus_i=focus_i+1;
       			 $("#productName"+focus_i).focus();
-			} else {				
-				$("#productTable tbody").append(tr);
-			}		
+		} else {				
+			$("#productTable tbody").append(tr);
+		}		
 
-		} // /success
-	});	// get the product data
+	});	// loadProducts (cache hit after first call)
 
 } // /add row
 

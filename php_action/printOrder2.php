@@ -8,21 +8,15 @@ require_once 'core.php';
 $orderId = $_POST['orderId'];
 //$orderId = '3';
 
-$getorder = mysqli_query($dbc,"SELECT * FROM order_item WHERE order_id = '$orderId'");
-
-while ($row = mysqli_fetch_assoc($getorder)) {
-	# code...
-	$p_id = mysqli_fetch_assoc(mysqli_query($dbc,"SELECT * FROM product WHERE product_id = '".$row['product_id']."'"));
-
-	 $now_quantity = $p_id['quantity']-$row['quantity'];
-	$product_id=$p_id['product_id'];
-	$q = mysqli_query($dbc,"UPDATE product SET quantity = '$now_quantity' WHERE product_id = '$product_id'");
-
-}
-
-
-
-
+// Previously this ran a SELECT + UPDATE per order item (2 queries per
+// product) to deduct stock — for a 10-item order that's 20 queries
+// firing sequentially before the print window even opens. A single
+// UPDATE...JOIN does the same job in one query regardless of how many
+// items are on the order.
+mysqli_query($dbc, "UPDATE product p
+INNER JOIN order_item oi ON oi.product_id = p.product_id
+SET p.quantity = p.quantity - oi.quantity
+WHERE oi.order_id = '$orderId'");
 
 
 $sql = "SELECT order_date, client_name, client_contact, sub_total, vat, total_amount, discount, grand_total, paid, due FROM orders WHERE order_id = $orderId";
@@ -42,11 +36,15 @@ $paid = $orderData[8];
 $due = $orderData[9];
  $date= mysqli_fetch_assoc(mysqli_query($dbc,"SELECT * FROM orders WHERE order_id = '$orderId'"));
 
-
+// Same fix as printOrder.php: pull product rate + category name in the
+// same query instead of running 2 extra queries per line item in the
+// loop below.
 $orderItemSql = "SELECT order_item.product_id, order_item.rate, order_item.quantity, order_item.total,
-product.product_name,order_item.percentage FROM order_item
-	INNER JOIN product ON order_item.product_id = product.product_id 
- WHERE order_item.order_id = $orderId";
+product.product_name, order_item.percentage, product.categories_id, categories.categories_name
+FROM order_item
+INNER JOIN product ON order_item.product_id = product.product_id
+LEFT JOIN categories ON categories.categories_id = product.categories_id
+WHERE order_item.order_id = $orderId";
 $orderItemResult = $connect->query($orderItemSql);
 if ( mysqli_num_rows($orderItemResult) > 0) {
 	 $time2 = ($date['orderdatetime']);
@@ -119,18 +117,17 @@ if ( mysqli_num_rows($orderItemResult) > 0) {
 		$gttotal = 0;
 		$gttotaltotaldics = 0;
 		while($row = $orderItemResult->fetch_array()) {
-				$product_id = $row['product_id'];
-				$fetchProduct = mysqli_fetch_assoc(mysqli_query($dbc,"SELECT * FROM product WHERE product_id='$product_id'"));
-				$fetchCategory = mysqli_fetch_assoc(mysqli_query($dbc,"SELECT * FROM categories WHERE categories_id='$fetchProduct[categories_id]'"));
+				// category data now comes straight from $row (via the
+				// JOIN above) — no more per-row queries here.
 	 		
 		?>				
 			 <tr>
 				<th><?=$x?></th>
 				<td style="font-size:20px;"><?php echo ucwords(strtolower($row[4])); ?><?php
-if($fetchCategory['categories_name'] == 'offdiscount' OR $fetchCategory['categories_name'] == 'OFFDISCOUNT'){
+if($row['categories_name'] == 'offdiscount' OR $row['categories_name'] == 'OFFDISCOUNT'){
 echo "";
 }else{
-echo "(".$fetchCategory['categories_name'].")";
+echo "(".$row['categories_name'].")";
 } 
  ?>  </td>
 				<th><?php echo $row['rate']; ?></th>
